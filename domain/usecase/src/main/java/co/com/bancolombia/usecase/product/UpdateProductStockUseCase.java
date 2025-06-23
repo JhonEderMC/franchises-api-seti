@@ -5,17 +5,18 @@ import co.com.bancolombia.exception.InvalidStockException;
 import co.com.bancolombia.exception.ProductNotFoundException;
 import co.com.bancolombia.gateway.BranchRepository;
 import co.com.bancolombia.model.Product;
+import co.com.bancolombia.model.log.Logger;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
-@Slf4j
 @RequiredArgsConstructor
 public class UpdateProductStockUseCase {
+
     private final BranchRepository branchRepository;
+    private final Logger logger;
 
     public Mono<Product> execute(String branchId, String productId, int newStock) {
-        log.info("Updating product {} stock to {} in branch {}", productId, newStock, branchId);
+        logger.info("Updating product {} stock to {} in branch {}", productId, newStock, branchId);
 
         if (newStock < 0) {
             return Mono.error(new InvalidStockException(newStock));
@@ -40,7 +41,7 @@ public class UpdateProductStockUseCase {
                         .filter(p -> p.getId().equals(productId))
                         .findFirst()
                         .orElseThrow())
-                .doOnSuccess(product -> log.info("Product stock updated successfully"))
-                .doOnError(error -> log.error("Error updating product stock: {}", error.getMessage()));
+                .doOnSuccess(product -> logger.info("Product stock updated successfully"))
+                .doOnError(error -> logger.error("Error updating product stock: {}", error.getMessage()));
     }
 }

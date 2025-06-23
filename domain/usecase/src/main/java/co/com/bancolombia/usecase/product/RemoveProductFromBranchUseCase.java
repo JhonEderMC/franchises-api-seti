@@ -3,17 +3,18 @@ package co.com.bancolombia.usecase.product;
 import co.com.bancolombia.exception.BranchNotFoundException;
 import co.com.bancolombia.exception.ProductNotFoundException;
 import co.com.bancolombia.gateway.BranchRepository;
+import co.com.bancolombia.model.log.Logger;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
-@Slf4j
 @RequiredArgsConstructor
 public class RemoveProductFromBranchUseCase {
+
     private final BranchRepository branchRepository;
+    private final Logger logger;
 
     public Mono<Void> execute(String branchId, String productId) {
-        log.info("Removing product {} from branch {}", productId, branchId);
+        logger.info("Removing product {} from branch {}", productId, branchId);
 
         return branchRepository.findById(branchId)
                 .switchIfEmpty(Mono.error(new BranchNotFoundException(branchId)))
@@ -29,7 +30,7 @@ public class RemoveProductFromBranchUseCase {
                 })
                 .flatMap(branchRepository::update)
                 .then()
-                .doOnSuccess(v -> log.info("Product removed successfully"))
-                .doOnError(error -> log.error("Error removing product: {}", error.getMessage()));
+                .doOnSuccess(v -> logger.info("Product removed successfully"))
+                .doOnError(error -> logger.error("Error removing product: {}", error.getMessage()));
     }
 }

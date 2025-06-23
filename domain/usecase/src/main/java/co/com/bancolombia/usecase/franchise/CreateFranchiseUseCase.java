@@ -2,21 +2,22 @@ package co.com.bancolombia.usecase.franchise;
 
 import co.com.bancolombia.gateway.FranchiseRepository;
 import co.com.bancolombia.model.Franchise;
+import co.com.bancolombia.model.log.Logger;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
-@Slf4j
 @RequiredArgsConstructor
 public class CreateFranchiseUseCase {
+
     private final FranchiseRepository franchiseRepository;
+    private final Logger logger;
 
     public Mono<Franchise> execute(String name) {
-        log.info("Creating new franchise with name: {}", name);
+        logger.info("Creating new franchise with name: {}", name);
 
         return Mono.just(Franchise.create(name))
                 .flatMap(franchiseRepository::save)
-                .doOnSuccess(franchise -> log.info("Franchise created successfully with id: {}", franchise.getId()))
-                .doOnError(error -> log.error("Error creating franchise: {}", error.getMessage()));
+                .doOnSuccess(franchise -> logger.info("Franchise created successfully with id: {}", franchise.getId()))
+                .doOnError(error -> logger.error("Error creating franchise: {}", error.getMessage()));
     }
 }
