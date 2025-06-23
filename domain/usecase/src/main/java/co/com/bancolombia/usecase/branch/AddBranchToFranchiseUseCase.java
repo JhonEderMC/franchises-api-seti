@@ -1,4 +1,4 @@
-package co.com.bancolombia.usecase;
+package co.com.bancolombia.usecase.branch;
 
 import co.com.bancolombia.exception.FranchiseNotFoundException;
 import co.com.bancolombia.gateway.BranchRepository;
