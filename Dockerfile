@@ -1,12 +1,13 @@
 FROM gradle:8.14-jdk21 AS build
 WORKDIR /app
 COPY . .
-RUN gradle bootJar --no-daemon --stacktrace --info
+RUN gradle :applications:app-service:bootJar --no-daemon --stacktrace --info
 
 # Run stage
-FROM openjdk:21-jdk-slim
+FROM eclipse-temurin:21-jdk-alpine
 WORKDIR /app
+VOLUME /tmp
 EXPOSE 8080
-COPY --from=build /app/build/libs/franquicias-api.jar app.jar
-
-ENTRYPOINT ["java", "-jar", "app.jar"]
+COPY --from=build /app/applications/app-service/build/libs/*.jar app.jar
+ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=70 -Djava.security.egd=file:/dev/./urandom"
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
