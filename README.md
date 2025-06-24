@@ -75,4 +75,6 @@ curl -X GET http://localhost:8080/api/v1/franchises/1/products/max-stock
 
 ---
 
+Reviar archivo de postman.json para ver ejemplos de peticiones y respuestas.
+
 Para más detalles, consulta la definición de rutas en `RouterRest` y la lógica en los handlers correspondientes.
