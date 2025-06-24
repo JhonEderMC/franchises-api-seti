@@ -1,4 +1,4 @@
-package co.com.bancolombia.api;
+package co.com.bancolombia.api.router;
 
 import co.com.bancolombia.api.handler.BranchHandler;
 import co.com.bancolombia.api.handler.FranchiseHandler;
