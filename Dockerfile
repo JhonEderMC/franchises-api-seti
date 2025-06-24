@@ -1,7 +1,8 @@
 FROM gradle:8.14-jdk21 AS build
 WORKDIR /app
 COPY . .
-RUN gradle :applications:app-service:bootJar --no-daemon --stacktrace --info
+RUN chmod +x ./gradlew
+RUN ./gradlew :applications:app-service:build -x test --stacktrace --info
 
 # Run stage
 FROM eclipse-temurin:21-jdk-alpine
