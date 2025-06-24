@@ -1,47 +1,78 @@
-# Proyecto Base Implementando Clean Architecture
+# Franquicias API
 
-## Antes de Iniciar
+API REST para la gestión de franquicias, sucursales y productos, desarrollada con Spring WebFlux y arquitectura limpia.
 
-Empezaremos por explicar los diferentes componentes del proyectos y partiremos de los componentes externos, continuando con los componentes core de negocio (dominio) y por último el inicio y configuración de la aplicación.
+## Endpoints principales
 
-Lee el artículo [Clean Architecture — Aislando los detalles](https://medium.com/bancolombia-tech/clean-architecture-aislando-los-detalles-4f9530f35d7a)
+### Franquicias
+- **Crear franquicia**
+  - `POST /api/v1/franchises`
+- **Actualizar nombre de franquicia**
+  - `PUT /api/v1/franchises/{franchiseId}/name`
 
-# Arquitectura
+### Sucursales
+- **Agregar sucursal a franquicia**
+  - `POST /api/v1/franchises/{franchiseId}/branches`
+- **Actualizar nombre de sucursal**
+  - `PUT /api/v1/branches/{branchId}/name`
 
-![Clean Architecture](https://miro.medium.com/max/1400/1*ZdlHz8B0-qu9Y-QO3AXR_w.png)
+### Productos
+- **Agregar producto a sucursal**
+  - `POST /api/v1/branches/{branchId}/products`
+- **Eliminar producto de sucursal**
+  - `DELETE /api/v1/branches/{branchId}/products/{productId}`
+- **Actualizar stock de producto**
+  - `PUT /api/v1/branches/{branchId}/products/{productId}/stock`
+- **Actualizar nombre de producto**
+  - `PUT /api/v1/branches/{branchId}/products/{productId}/name`
+- **Obtener productos con mayor stock por franquicia**
+  - `GET /api/v1/franchises/{franchiseId}/products/max-stock`
 
-## Domain
+## Estructura del proyecto
+- `RouterRest`: Define las rutas y asocia cada endpoint con su handler correspondiente.
+- `FranchiseHandler`: Lógica para operaciones sobre franquicias.
+- `BranchHandler`: Lógica para operaciones sobre sucursales.
+- `ProductHandler`: Lógica para operaciones sobre productos.
 
-Es el módulo más interno de la arquitectura, pertenece a la capa del dominio y encapsula la lógica y reglas del negocio mediante modelos y entidades del dominio.
+## Tecnologías
+- Java 21
+- Spring WebFlux
+- Gradle
+- Docker
 
-## Usecases
+## Despliegue
+El proyecto está listo para ser desplegado en Render o cualquier plataforma compatible con Docker. El puerto expuesto es el 8080.
 
-Este módulo gradle perteneciente a la capa del dominio, implementa los casos de uso del sistema, define lógica de aplicación y reacciona a las invocaciones desde el módulo de entry points, orquestando los flujos hacia el módulo de entities.
+## Ejemplo de uso
+```bash
+# Crear una franquicia
+curl -X POST http://localhost:8080/api/v1/franchises -H "Content-Type: application/json" -d '{"name": "Mi Franquicia"}'
 
-## Infrastructure
+# Actualizar nombre de franquicia
+curl -X PUT http://localhost:8080/api/v1/franchises/1/name -H "Content-Type: application/json" -d '{"name": "Nuevo Nombre"}'
 
-### Helpers
+# Agregar sucursal a una franquicia
+curl -X POST http://localhost:8080/api/v1/franchises/1/branches -H "Content-Type: application/json" -d '{"name": "Sucursal Centro"}'
 
-En el apartado de helpers tendremos utilidades generales para los Driven Adapters y Entry Points.
+# Actualizar nombre de sucursal
+curl -X PUT http://localhost:8080/api/v1/branches/1/name -H "Content-Type: application/json" -d '{"name": "Sucursal Norte"}'
 
-Estas utilidades no están arraigadas a objetos concretos, se realiza el uso de generics para modelar comportamientos
-genéricos de los diferentes objetos de persistencia que puedan existir, este tipo de implementaciones se realizan
-basadas en el patrón de diseño [Unit of Work y Repository](https://medium.com/@krzychukosobudzki/repository-design-pattern-bc490b256006)
+# Agregar producto a sucursal
+curl -X POST http://localhost:8080/api/v1/branches/1/products -H "Content-Type: application/json" -d '{"name": "Producto A", "stock": 100}'
 
-Estas clases no puede existir solas y debe heredarse su compartimiento en los **Driven Adapters**
+# Eliminar producto de sucursal
+curl -X DELETE http://localhost:8080/api/v1/branches/1/products/1
 
-### Driven Adapters
+# Actualizar stock de producto
+curl -X PUT http://localhost:8080/api/v1/branches/1/products/1/stock -H "Content-Type: application/json" -d '{"stock": 150}'
 
-Los driven adapter representan implementaciones externas a nuestro sistema, como lo son conexiones a servicios rest,
-soap, bases de datos, lectura de archivos planos, y en concreto cualquier origen y fuente de datos con la que debamos
-interactuar.
+# Actualizar nombre de producto
+curl -X PUT http://localhost:8080/api/v1/branches/1/products/1/name -H "Content-Type: application/json" -d '{"name": "Producto B"}'
 
-### Entry Points
+# Obtener productos con mayor stock por franquicia
+curl -X GET http://localhost:8080/api/v1/franchises/1/products/max-stock
+```
 
-Los entry points representan los puntos de entrada de la aplicación o el inicio de los flujos de negocio.
+---
 
-## Application
-
-Este módulo es el más externo de la arquitectura, es el encargado de ensamblar los distintos módulos, resolver las dependencias y crear los beans de los casos de use (UseCases) de forma automática, inyectando en éstos instancias concretas de las dependencias declaradas. Además inicia la aplicación (es el único módulo del proyecto donde encontraremos la función “public static void main(String[] args)”.
-
-**Los beans de los casos de uso se disponibilizan automaticamente gracias a un '@ComponentScan' ubicado en esta capa.**
+Para más detalles, consulta la definición de rutas en `RouterRest` y la lógica en los handlers correspondientes.
