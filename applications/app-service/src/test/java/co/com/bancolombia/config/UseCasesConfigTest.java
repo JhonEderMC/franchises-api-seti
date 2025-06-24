@@ -1,44 +1,58 @@
 package co.com.bancolombia.config;
 
+import co.com.bancolombia.gateway.BranchRepository;
+import co.com.bancolombia.gateway.FranchiseRepository;
+import co.com.bancolombia.log.LoggerAdapter;
+import co.com.bancolombia.model.log.Logger;
+import co.com.bancolombia.usecase.branch.AddBranchToFranchiseUseCase;
+import co.com.bancolombia.usecase.franchise.CreateFranchiseUseCase;
+import co.com.bancolombia.usecase.product.UpdateProductStockUseCase;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class UseCasesConfigTest {
+class UseCasesConfigTest {
+
+    private UseCasesConfig config;
+
+    @BeforeEach
+    void setUp() {
+        config = new UseCasesConfig();
+    }
 
     @Test
-    void testUseCaseBeansExist() {
-        try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(TestConfig.class)) {
-            String[] beanNames = context.getBeanDefinitionNames();
-
-            boolean useCaseBeanFound = false;
-            for (String beanName : beanNames) {
-                if (beanName.endsWith("UseCase")) {
-                    useCaseBeanFound = true;
-                    break;
-                }
-            }
-
-            assertTrue(useCaseBeanFound, "No beans ending with 'Use Case' were found");
-        }
+    void shouldCreateAddBranchToFranchiseLogger() {
+        Logger logger = config.addBranchToFranchiseLogger();
+        assertNotNull(logger);
+        assertTrue(logger instanceof LoggerAdapter);
     }
 
-    @Configuration
-    @Import(UseCasesConfig.class)
-    static class TestConfig {
-
-        @Bean
-        public MyUseCase myUseCase() {
-            return new MyUseCase();
-        }
+    @Test
+    void shouldCreateCreateFranchiseUseCase() {
+        FranchiseRepository franchiseRepository = Mockito.mock(FranchiseRepository.class);
+        Logger logger = Mockito.mock(Logger.class);
+        CreateFranchiseUseCase useCase = config.createFranchiseUseCase(franchiseRepository, logger);
+        assertNotNull(useCase);
     }
 
-    static class MyUseCase {
-        public String execute() {
-            return "MyUseCase Test";
-        }
+    @Test
+    void shouldCreateAddBranchToFranchiseUseCase() {
+        FranchiseRepository franchiseRepository = Mockito.mock(FranchiseRepository.class);
+        BranchRepository branchRepository = Mockito.mock(BranchRepository.class);
+        Logger logger = Mockito.mock(Logger.class);
+        AddBranchToFranchiseUseCase useCase = config.addBranchToFranchiseUseCase(franchiseRepository, branchRepository, logger);
+        assertNotNull(useCase);
     }
+
+    @Test
+    void shouldCreateUpdateProductStockUseCase() {
+        BranchRepository branchRepository = Mockito.mock(BranchRepository.class);
+        Logger logger = Mockito.mock(Logger.class);
+        UpdateProductStockUseCase useCase = config.updateProductStockUseCase(branchRepository, logger);
+        assertNotNull(useCase);
+    }
+
 }

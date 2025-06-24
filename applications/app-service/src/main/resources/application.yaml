@@ -5,6 +5,13 @@ spring:
     name: "franquicias-api"
   devtools:
     add-properties: false
+  data:
+    mongodb:
+      uri: "${MONGO_DB_URI}"
+      username: "${MONGO_DB_USERNAME}"
+      password: "${MONGO_DB_PASSWORD}"
+      cluster-url: "${MONGO_DB_CLUSTER_URL}"
+      database: "${MONGO_DB_DATABASE}"
   h2:
     console:
       enabled: true
@@ -21,4 +28,4 @@ management:
       probes:
         enabled: true
 cors:
-  allowed-origins: "http://localhost:4200,http://localhost:8080"
+  allowed-origins: "http://localhost:4200,http://localhost:8080, *"
