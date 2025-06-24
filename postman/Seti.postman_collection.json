@@ -1,0 +1,455 @@
+{
+	"info": {
+		"_postman_id": "f5e80fd5-cb05-4ec9-a66b-08f5ff1afd2e",
+		"name": "Seti",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13619370"
+	},
+	"item": [
+		{
+			"name": "Franchise",
+			"item": [
+				{
+					"name": "Create Name Franchis",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pizza Express\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/franchises",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"franchises"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Pizza Express\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/franchises",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"franchises"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self'; frame-ancestors 'self'; form-action 'self'"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000;"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Server",
+									"value": ""
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "strict-origin-when-cross-origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "56"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"body": "{\n    \"id\": \"6859d3a48c83a9a604f6d20e\",\n    \"name\": \"Pizza Express\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Name Franchis",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pizza Express12\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/franchises/6859d3a48c83a9a604f6d20e/name",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"franchises",
+								"6859d3a48c83a9a604f6d20e",
+								"name"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Name branch",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"branch1\",\r\n    \"franchiseId\": \"6859d3a48c83a9a604f6d20e\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/franchises/6859d3a48c83a9a604f6d20e/branches",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"franchises",
+								"6859d3a48c83a9a604f6d20e",
+								"branches"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"branch1\",\r\n    \"franchiseId\": \"6859d3a48c83a9a604f6d20e\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/franchises/6859d3a48c83a9a604f6d20e/branches",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"franchises",
+										"6859d3a48c83a9a604f6d20e",
+										"branches"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self'; frame-ancestors 'self'; form-action 'self'"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000;"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Server",
+									"value": ""
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-store"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "strict-origin-when-cross-origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "91"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"6859de67084724c9a49326e6\",\n    \"name\": \"branch1\",\n    \"franchiseId\": \"6859d3a48c83a9a604f6d20e\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Name branch",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"branch\"    \r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/6859de67084724c9a49326e6/name",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"6859de67084724c9a49326e6",
+								"name"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Add Product Branch",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"prodcut 3\",\r\n    \"stock\": 11,\r\n    \"branchId\": \"6859de67084724c9a49326e6\"\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/6859de67084724c9a49326e6/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"6859de67084724c9a49326e6",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Product From Branch",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/6859de67084724c9a49326e6/products/e1f847ca-8fbf-40fc-b01f-d748c7c55e47",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"6859de67084724c9a49326e6",
+								"products",
+								"e1f847ca-8fbf-40fc-b01f-d748c7c55e47"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product Stock",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stock\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/6859de67084724c9a49326e6/products/26ea8c7e-24c6-4c76-b766-b03f4439842a/stock",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"6859de67084724c9a49326e6",
+								"products",
+								"26ea8c7e-24c6-4c76-b766-b03f4439842a",
+								"stock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product Name",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"product change\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/branches/6859de67084724c9a49326e6/products/26ea8c7e-24c6-4c76-b766-b03f4439842a/name",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"6859de67084724c9a49326e6",
+								"products",
+								"26ea8c7e-24c6-4c76-b766-b03f4439842a",
+								"name"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Max Stock Products By Franchise",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/franchises/6859d3a48c83a9a604f6d20e/products/max-stock",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"franchises",
+								"6859d3a48c83a9a604f6d20e",
+								"products",
+								"max-stock"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": " http://localhost:8080",
+			"type": "default"
+		}
+	]
+}
